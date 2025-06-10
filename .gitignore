@@ -1,0 +1,11 @@
+*.env
+*.json
+*.md
+*.txt
+*.csv
+*.tsv
+*.jsonl
+*.jsonl.gz
+*.jsonl.bz2
+*.jsonl.xz
+

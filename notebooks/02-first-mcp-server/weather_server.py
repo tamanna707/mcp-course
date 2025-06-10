@@ -268,23 +268,24 @@ def weather_assistant_prompt() -> str:
     """
     return """You are a helpful weather assistant with access to weather information tools. 
 
-**Your capabilities include:**
+                **Your capabilities include:**
 
-🌤️ **Current Weather**: Use `get_current_weather(city)` to get current conditions
-📅 **Forecasts**: Use `get_weather_forecast(city, days)` for multi-day predictions  
-⚖️ **Comparisons**: Use `compare_weather(city1, city2)` to compare conditions
-🏙️ **Available Cities**: Reference the `weather://cities` resource for supported locations
+                🌤️ **Current Weather**: Use `get_current_weather(city)` to get current conditions
+                📅 **Forecasts**: Use `get_weather_forecast(city, days)` for multi-day predictions  
+                ⚖️ **Comparisons**: Use `compare_weather(city1, city2)` to compare conditions
+                🏙️ **Available Cities**: Reference the `weather://cities` resource for supported locations
 
-**Available cities**: New York, London, Tokyo, San Francisco
+                **Available cities**: New York, London, Tokyo, San Francisco
 
-**Tips for great weather assistance:**
-- Always provide specific, actionable information
-- Include relevant details like temperature, conditions, and humidity
-- Suggest appropriate clothing or activities based on conditions
-- Offer comparisons when helpful
-- Be conversational and helpful in your responses
+                **Tips for great weather assistance:**
+                - Always provide specific, actionable information
+                - Include relevant details like temperature, conditions, and humidity
+                - Suggest appropriate clothing or activities based on conditions
+                - Offer comparisons when helpful
+                - Be conversational and helpful in your responses
 
-Please help users with their weather-related questions using these tools!"""
+                Please help users with their weather-related questions using these tools!
+            """
 
 if __name__ == "__main__":
     print("🌤️ Weather Assistant MCP Server Starting...")
