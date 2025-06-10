@@ -1,95 +1,90 @@
-# Google ADK with MCP Integration Demo
+# Google ADK + MCP Integration Demo
 
-This demo showcases how to build agents using Google's Agent Development Kit (ADK) that can connect to MCP servers to access external tools and data.
+This example demonstrates how to integrate MCP (Model Context Protocol) servers with Google's Agent Development Kit (ADK).
 
-## What You'll Learn
+## Overview
 
-- How to integrate MCP servers with Google ADK agents
-- Using MCPToolset to expose MCP tools to ADK agents
-- Building multi-agent systems with MCP capabilities
-- Deploying ADK agents that leverage external MCP services
+The demo includes:
+- A simple MCP server (`simple_mcp_server.py`) that provides basic tools
+- An ADK agent (`adk_mcp_demo.py`) that connects to and uses the MCP server
+- The original agent.py file showing the pattern for connecting to external MCP servers
 
-## Prerequisites
+## Files
 
-- Python 3.10+
-- Google Cloud account (for Vertex AI access)
-- ADK installed
-- Basic understanding of MCP concepts
+1. **simple_mcp_server.py** - A basic MCP server providing three tools:
+   - `get_current_time` - Returns current time in various formats
+   - `calculate` - Performs mathematical calculations
+   - `get_weather_info` - Returns simulated weather data
+
+2. **adk_mcp_demo.py** - ADK agent that uses the MCP server tools
+   - Shows the simplest integration pattern
+   - Includes both demo and interactive modes
+
+3. **adk-agent/agent.py** - Original example showing HTTP/SSE connection pattern
 
 ## Installation
 
-1. Install dependencies:
 ```bash
-pip install -r requirements.txt
-```
-
-2. Set up Google Cloud credentials:
-```bash
-gcloud auth application-default login
-export GOOGLE_CLOUD_PROJECT="your-project-id"
-```
-
-3. Install ADK:
-```bash
+# Install Google ADK
 pip install google-adk
+
+# Install MCP SDK
+pip install mcp
+
+# Install other dependencies
+pip install python-dotenv rich
 ```
-
-## Demo Files
-
-- `adk_mcp_agent.py` - Main ADK agent with MCP integration
-- `weather_mcp_server.py` - Sample weather MCP server
-- `database_mcp_server.py` - Sample database MCP server  
-- `requirements.txt` - Python dependencies
-- `config.yaml` - ADK configuration
 
 ## Running the Demo
 
-1. Start the MCP servers:
+### Option 1: Run the automated demo
 ```bash
-# Terminal 1 - Weather server
-python weather_mcp_server.py
-
-# Terminal 2 - Database server  
-python database_mcp_server.py
+python adk_mcp_demo.py
 ```
 
-2. Run the ADK agent:
+### Option 2: Run interactive mode
 ```bash
-python adk_mcp_agent.py
+python adk_mcp_demo.py --interactive
 ```
-
-3. Test the integration through the ADK web interface or programmatically.
 
 ## Key Concepts
 
 ### MCPToolset Integration
-ADK's `MCPToolset` class automatically discovers and adapts MCP tools for use within ADK agents:
+
+The key to integrating MCP with ADK is the `MCPToolset` class:
 
 ```python
-from adk.tools import MCPToolset
+from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset, StdioServerParameters
 
-# Connect to MCP server
-mcp_toolset = MCPToolset(
-    server_config={
-        "command": "python",
-        "args": ["weather_mcp_server.py"],
-        "transport": "stdio"
-    }
-)
-
-# Use in agent
 agent = LlmAgent(
-    name="WeatherAgent",
-    tools=[mcp_toolset]
+    model="gemini-2.0-flash",
+    tools=[
+        MCPToolset(
+            connection_params=StdioServerParameters(
+                command="python",
+                args=["simple_mcp_server.py"],
+            )
+        )
+    ]
 )
 ```
 
-### Agent Orchestration
-ADK supports hierarchical agent structures where specialized agents handle specific tasks using MCP tools.
+### Connection Types
 
-## References
+1. **StdioServerParameters** - For local MCP servers (stdio communication)
+2. **SseServerParams** - For HTTP/SSE based MCP servers
 
-- [ADK Documentation](https://google.github.io/adk-docs/)
-- [ADK MCP Integration Guide](https://google.github.io/adk-docs/tools/mcp-tools/)
-- [Google ADK Examples](https://github.com/google/adk/tree/main/examples)
-- [MCP Toolbox for Databases](https://cloud.google.com/blog/products/ai-machine-learning/mcp-toolbox-for-databases-now-supports-model-context-protocol)
+## How It Works
+
+1. The ADK agent starts and initializes the MCPToolset
+2. MCPToolset spawns the MCP server process and connects to it
+3. The agent discovers available tools from the MCP server
+4. When the agent needs to use a tool, MCPToolset proxies the call to the MCP server
+5. Results are returned to the agent for processing
+
+## Benefits
+
+- **Separation of Concerns**: Tools can be developed independently as MCP servers
+- **Reusability**: MCP servers can be used with any MCP-compatible client
+- **Flexibility**: Easy to add/remove tools without modifying agent code
+- **Standardization**: Uses the open MCP protocol for tool communication
