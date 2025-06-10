@@ -1,0 +1,26 @@
+{
+  "mcpServers": {
+    "development_assistant": {
+      "command": "python",
+      "args": ["/path/to/your/development_mcp_server.py"],
+      "env": {}
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/Users/username/Projects"],
+      "env": {}
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "your-github-token"
+      }
+    },
+    "git": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-git", "--repository", "/Users/username/Projects/current-project"],
+      "env": {}
+    }
+  }
+}

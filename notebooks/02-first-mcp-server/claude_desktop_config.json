@@ -1,0 +1,22 @@
+{
+  "mcpServers": {
+    "weather-assistant": {
+      "command": "python",
+      "args": [
+        "/Users/greatmaster/Desktop/projects/oreilly-live-trainings/mcp-course/notebooks/02-first-mcp-server/weather_server.py"
+      ],
+      "env": {
+        "PYTHONPATH": "/Users/greatmaster/Desktop/projects/oreilly-live-trainings/mcp-course/notebooks/02-first-mcp-server"
+      }
+    },
+    "file-manager": {
+      "command": "python",
+      "args": [
+        "/Users/greatmaster/Desktop/projects/oreilly-live-trainings/mcp-course/notebooks/02-first-mcp-server/file_manager_server.py"
+      ],
+      "env": {
+        "PYTHONPATH": "/Users/greatmaster/Desktop/projects/oreilly-live-trainings/mcp-course/notebooks/02-first-mcp-server"
+      }
+    }
+  }
+}

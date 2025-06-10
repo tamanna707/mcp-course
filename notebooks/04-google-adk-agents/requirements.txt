@@ -1,0 +1,13 @@
+# Google ADK and MCP dependencies
+google-adk>=1.0.0
+mcp>=1.0.0
+model-context-protocol>=0.5.0
+
+# Google Cloud dependencies
+google-cloud-aiplatform>=1.40.0
+google-auth>=2.20.0
+
+# Additional dependencies
+asyncio
+pydantic>=2.0.0
+python-dotenv>=1.0.0
