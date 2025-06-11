@@ -62,7 +62,7 @@ class MCPClient:
             "input_schema": tool.inputSchema
         } for tool in response.tools]
 
-        # Initial Claude API call
+        # Initial Claude API call THIS IN THE HOST!!!! CLIENT To be more specific
         response = self.anthropic.messages.create(
             model="claude-3-5-sonnet-20241022",
             max_tokens=1000,
