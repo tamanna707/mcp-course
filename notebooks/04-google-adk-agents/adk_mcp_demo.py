@@ -71,6 +71,7 @@ async def run_demo():
     
     # Create a runner to execute the agent
     runner = Runner(
+        app_name="mcp_demo_assistant",
         agent=agent,
         session_service=InMemorySessionService()
     )
@@ -110,6 +111,7 @@ async def interactive_demo():
     
     # Create a runner
     runner = Runner(
+        app_name="mcp_demo_assistant",
         agent=agent,
         session_service=InMemorySessionService()
     )

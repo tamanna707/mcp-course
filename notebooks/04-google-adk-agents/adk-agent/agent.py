@@ -1,79 +1,34 @@
-#!/usr/bin/env python3
-"""
-Example: ADK Agent connecting to an HTTP/SSE MCP Server
-This shows how to connect to MCP servers running over HTTP with Server-Sent Events
-"""
-
-import asyncio
-from typing import Any, Optional
-
-from dotenv import load_dotenv
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.9"
+# dependencies = [
+#     "google-adk<=1.0.0",
+#     "python-dotenv"
+# ]
+# ///
+# ./adk_agent_samples/mcp_client_agent/agent.py
+import os
 from google.adk.agents import LlmAgent
-from google.adk.runners import Runner
-from google.adk.sessions import InMemorySessionService
-from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset, SseServerParams
+from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset, StdioServerParameters
 
-load_dotenv()
+# IMPORTANT: Replace this with the ABSOLUTE path to your my_adk_mcp_server.py script
+PATH_TO_YOUR_MCP_SERVER_SCRIPT = "/Users/greatmaster/Desktop/projects/oreilly-live-trainings/mcp-course/notebooks/04-google-adk-agents/simple_mcp_server.py" # <<< REPLACE
 
-def create_agent_with_http_mcp(mcp_url: str = "http://localhost:8001/sse") -> LlmAgent:
-    """
-    Creates an ADK Agent that connects to an MCP server over HTTP/SSE.
-    
-    Args:
-        mcp_url: The URL of the MCP server's SSE endpoint
-    
-    Returns:
-        An LlmAgent configured with MCP tools
-    """
-    
-    agent = LlmAgent(
-        model="gemini-2.0-flash",
-        name="http_mcp_assistant",
-        instruction="""You are a helpful assistant that can access external tools via MCP.
-        
-        Use the available tools to help users with their requests.
-        Always provide clear and concise responses.""",
-        tools=[
-            MCPToolset(
-                connection_params=SseServerParams(url=mcp_url)
+if PATH_TO_YOUR_MCP_SERVER_SCRIPT == "":
+    print("WARNING: PATH_TO_YOUR_MCP_SERVER_SCRIPT is not set. Please update it in agent.py.")
+    # Optionally, raise an error if the path is critical
+
+root_agent = LlmAgent(
+    model='gemini-2.0-flash',
+    name='web_reader_mcp_client_agent',
+    instruction="Use the 'load_web_page' tool to fetch content from a URL provided by the user.",
+    tools=[
+        MCPToolset(
+            connection_params=StdioServerParameters(
+                command='python', # Command to run your MCP server script
+                args=[PATH_TO_YOUR_MCP_SERVER_SCRIPT], # Argument is the path to the script
             )
-        ],
-    )
-    
-    return agent
-
-async def demo_http_mcp_agent():
-    """Demonstrate using an ADK agent with HTTP/SSE MCP server"""
-    
-    print("🌐 ADK Agent with HTTP/SSE MCP Server Demo")
-    print("=" * 50)
-    print("Note: This requires an MCP server running at http://localhost:8001/sse")
-    print("=" * 50)
-    
-    try:
-        # Create the agent
-        agent = create_agent_with_http_mcp()
-        
-        # Create a runner
-        runner = Runner(
-            agent=agent,
-            session_service=InMemorySessionService()
+            # tool_filter=['load_web_page'] # Optional: ensure only specific tools are loaded
         )
-        
-        # Example interaction
-        query = "What tools do you have available?"
-        print(f"\n👤 User: {query}")
-        
-        response = await runner.run(
-            prompt=query,
-            session_id="demo_session"
-        )
-        
-        print(f"🤖 Assistant: {response.text}")
-        
-    except Exception as e:
-        print(f"❌ Error: {str(e)}")
-        print("\nMake sure you have an MCP server running at http://localhost:8001/sse")
-
-if __name__ == "__main__":
-    asyncio.run(demo_http_mcp_agent())
+    ],
+)
