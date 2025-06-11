@@ -61,7 +61,7 @@ python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 # Install base dependencies
-pip install mcp mcp[cli] google-adk python-dotenv
+pip install -r requirements.txt
 ```
 
 ### 2. Set Environment Variables
