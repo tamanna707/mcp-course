@@ -1,6 +1,6 @@
 # Google ADK and dependencies
-google-adk==1.2.1
-google-genai==0.1.0
+google-adk>=1.0.0
+google-genai>=0.1.0
 # MCP SDK
 mcp==1.9.3
 # Utilities
@@ -19,3 +19,6 @@ starlette>=0.27.0
 httpx>=0.25.0
 # OpenAI Agents
 openai-agents
+beautifulsoup4
+lxml
+requests
