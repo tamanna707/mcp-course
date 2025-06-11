@@ -8,3 +8,6 @@
 *.jsonl.bz2
 *.jsonl.xz
 
+
+venv/
+.venv/
