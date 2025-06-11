@@ -90,6 +90,166 @@ pip install -r requirements.txt
 python basic_server.py
 ```
 
+## 🪟 Windows Setup Guide
+
+Windows users need additional setup steps for MCP development. Follow this comprehensive guide for a smooth setup experience.
+
+### Prerequisites for Windows
+
+- **Windows 10/11** with Developer Mode enabled
+- **Python 3.10+** from [python.org](https://www.python.org/downloads/) (ensure "Add to PATH" is checked)
+- **Node.js 18+** from [nodejs.org](https://nodejs.org/)
+- **Git for Windows** from [git-scm.com](https://git-scm.com/)
+- **Windows Terminal** (recommended) from Microsoft Store
+
+### 1. Enable Developer Mode
+
+1. Open **Settings** → **Update & Security** → **For developers**
+2. Select **Developer mode**
+3. Restart your computer
+
+### 2. Setup PowerShell Execution Policy
+
+Open PowerShell as Administrator and run:
+
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+
+### 3. Clone and Setup (Windows)
+
+```cmd
+# Clone the repository
+git clone <repository-url>
+cd mcp-course
+
+# Create virtual environment
+python -m venv venv
+
+# Activate virtual environment (Command Prompt)
+venv\Scripts\activate
+
+# OR activate in PowerShell
+venv\Scripts\Activate.ps1
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+### 4. Environment Variables (Windows)
+
+Create a `.env` file in the project root:
+
+```env
+# API Keys
+OPENAI_API_KEY=your-openai-api-key
+ANTHROPIC_API_KEY=your-anthropic-api-key
+GOOGLE_CLOUD_PROJECT=your-google-cloud-project-id
+
+# Windows-specific paths (use forward slashes)
+MCP_DEMO_PATH=C:/path/to/your/demo/files
+```
+
+Alternatively, set environment variables using Command Prompt:
+
+```cmd
+set OPENAI_API_KEY=your-openai-api-key
+set ANTHROPIC_API_KEY=your-anthropic-api-key
+```
+
+Or using PowerShell:
+
+```powershell
+$env:OPENAI_API_KEY="your-openai-api-key"
+$env:ANTHROPIC_API_KEY="your-anthropic-api-key"
+```
+
+### 5. Claude Desktop Configuration (Windows)
+
+Claude Desktop config location on Windows:
+
+```
+%APPDATA%\Claude\claude_desktop_config.json
+```
+
+Example setup:
+
+```cmd
+# Navigate to Claude config directory
+cd %APPDATA%\Claude
+
+# Copy and edit configuration
+copy "C:\path\to\mcp-course\notebooks\02-first-mcp-server\claude_desktop_config.json" claude_desktop_config.json
+```
+
+**Important**: Use absolute paths with forward slashes in the config file:
+
+```json
+{
+  "mcpServers": {
+    "weather": {
+      "command": "C:/path/to/mcp-course/venv/Scripts/python.exe",
+      "args": ["C:/path/to/mcp-course/notebooks/02-first-mcp-server/weather_server.py"]
+    }
+  }
+}
+```
+
+### 6. Windows-Specific Commands
+
+When running demos, use these Windows-equivalent commands:
+
+| Linux/macOS | Windows (CMD) | Windows (PowerShell) |
+|-------------|---------------|----------------------|
+| `source venv/bin/activate` | `venv\Scripts\activate` | `venv\Scripts\Activate.ps1` |
+| `export VAR=value` | `set VAR=value` | `$env:VAR="value"` |
+| `~/.config/Claude/` | `%APPDATA%\Claude\` | `$env:APPDATA\Claude\` |
+| `python3` | `python` | `python` |
+
+### 7. Testing on Windows
+
+```cmd
+# Activate virtual environment
+venv\Scripts\activate
+
+# Test basic server
+cd notebooks\01-introduction-to-mcp
+pip install -r requirements.txt
+python basic_server.py
+```
+
+### Windows Troubleshooting
+
+**Common Windows Issues:**
+
+1. **"python not found"**
+   - Reinstall Python with "Add to PATH" checked
+   - Or add Python manually to system PATH
+
+2. **PowerShell execution policy errors**
+   ```powershell
+   Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process
+   ```
+
+3. **Permission denied with npm/node**
+   - Run terminal as Administrator
+   - Or use `npm config set prefix "C:\Users\{username}\AppData\Roaming\npm"`
+
+4. **Claude Desktop not finding MCP servers**
+   - Use absolute paths in configuration
+   - Ensure all backslashes are forward slashes in JSON
+   - Check that Python executable path is correct: `C:\path\to\venv\Scripts\python.exe`
+
+5. **Long path issues**
+   - Enable long paths in Windows: `gpedit.msc` → Computer Configuration → Administrative Templates → System → Filesystem → Enable Win32 long paths
+
+### Windows Development Tips
+
+- Use **Windows Terminal** with PowerShell for better experience
+- Consider **WSL2** for Linux-like environment if preferred
+- Use **VS Code** with Python extension for development
+- Set up **Windows Defender** exclusions for your development folder to improve performance
+
 ## 📚 Demo Sections Guide
 
 ### 01. Introduction to MCP
