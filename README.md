@@ -20,8 +20,10 @@ The Model Context Protocol (MCP) is revolutionizing how AI applications connect 
 mcp-course/
 ├── README.md                           # This file - complete course guide
 ├── Makefile                           # Automation scripts
-├── presentation/                      # Course presentation slides
-│   └── presentation.html
+├── presentation/                      # Course presentation materials
+│   ├── presentation.html              # Main presentation
+│   ├── mcp-talk.pdf                  # PDF version
+│   └── anki-mcp.txt                  # Study materials
 └── notebooks/                        # All demo materials organized by topic
     ├── 01-introduction-to-mcp/       # MCP basics and first server
     ├── 02-first-mcp-server/          # Building your first MCP server
@@ -117,26 +119,26 @@ python test_client.py
 
 ### 02. First MCP Server
 
-**What it covers**: Building a practical weather server, Claude Desktop integration
+**What it covers**: Building a practical MCP server with Claude Desktop integration for real-world workflows
 
 **Files**:
-- `weather_server.py` - Complete weather MCP server
+- `weather_server.py` - MCP server with weather and file management tools
 - `claude_desktop_config.json` - Configuration for Claude Desktop
-- `README.md` - Setup instructions
+- `README.md` - Detailed setup and usage instructions
 
 **Running**:
 ```bash
 cd notebooks/02-first-mcp-server
-pip install -r requirements.txt
 
 # Start the weather server
 python weather_server.py
 
-# Optional: Configure with Claude Desktop
-# Copy claude_desktop_config.json to ~/.claude_desktop_config.json
+# Configure Claude Desktop (copy and edit the config)
+cp claude_desktop_config.json ~/.config/Claude/claude_desktop_config.json
+# Restart Claude Desktop to load the new configuration
 ```
 
-**Key Learning**: Building real-world MCP servers and integrating with consumer applications.
+**Key Learning**: Creating practical MCP servers for end-user workflows with Claude Desktop.
 
 ---
 
@@ -167,119 +169,109 @@ python test_client.py
 
 ### 04. Google ADK Agents
 
-**What it covers**: Building agents with Google's Agent Development Kit that use MCP tools
+**What it covers**: Integrating MCP servers with Google's Agent Development Kit (ADK) using MCPToolset
 
 **Prerequisites**: Google Cloud account and project
 
 **Files**:
-- `adk_mcp_agent.py` - Main ADK agent with MCP integration
-- `weather_mcp_server.py` - Sample weather server
-- `database_mcp_server.py` - Sample database server
+- `simple_mcp_server.py` - Sample MCP server for testing
+- `adk-agent/agent.py` - ADK agent implementation with MCP integration
+- `README.md` - Detailed setup instructions
 
 **Running**:
 ```bash
 cd notebooks/04-google-adk-agents
-pip install -r requirements.txt
 
 # Set up Google Cloud credentials
 gcloud auth application-default login
 export GOOGLE_CLOUD_PROJECT="your-project-id"
 
-# Start MCP servers (separate terminals)
-python weather_mcp_server.py &
-python database_mcp_server.py &
+# Start the MCP server
+python simple_mcp_server.py
 
-# Run ADK agent
-python adk_mcp_agent.py
+# In another terminal, run the ADK agent
+cd adk-agent
+python agent.py
 ```
 
-**Key Learning**: Integrating MCP with Google's enterprise agent framework.
+**Key Learning**: Using MCPToolset to connect Google ADK agents with MCP servers for interoperability.
 
 ---
 
 ### 05. OpenAI Agents
 
-**What it covers**: Building agents with OpenAI's Agents SDK that connect to MCP servers
+**What it covers**: OpenAI agent integration with MCP for file access capabilities
 
 **Prerequisites**: OpenAI API key
 
 **Files**:
-- `openai_mcp_agent.py` - Main OpenAI agent with MCP integration
-- `mcp_server_examples.py` - Sample MCP servers for testing
+- `basic_agent_file_access.py` - OpenAI agent with file access via MCP
+- `sample_files/` - Sample markdown files for testing
+  - `books.md` - Book recommendations
+  - `music.md` - Music playlists
 
 **Running**:
 ```bash
-cd notebooks/06-openai-agents
-pip install -r requirements.txt
+cd notebooks/05-openai-agents
 
 # Set API key
 export OPENAI_API_KEY="your-openai-api-key"
 
-# Start sample MCP servers
-python mcp_server_examples.py --mode weather &
-python mcp_server_examples.py --mode calculator &
-
-# Run OpenAI agents
-python openai_mcp_agent.py
+# Run the agent with file access
+python basic_agent_file_access.py
 ```
 
-**Key Learning**: Native MCP integration in OpenAI's Agents SDK.
+**Key Learning**: Using OpenAI agents with MCP for structured file access and data retrieval.
 
 ---
 
 ### 06. Claude Desktop & Cursor Demos
 
-**What it covers**: End-user MCP experiences with consumer applications
+**What it covers**: Advanced consumer application integration with Claude Desktop and Cursor IDE
 
 **Prerequisites**: Claude Desktop app installed
 
 **Files**:
 - `development_mcp_server.py` - Development-focused MCP server
-- `claude_desktop_configs/` - Sample configurations
-- `README.md` - Setup instructions
+- `mcp_demo_workflow.py` - Workflow automation examples
+- `claude_desktop_configs/` - Multiple configuration examples
+  - `basic.json` - Basic configuration
+  - `development.json` - Development environment setup
+  - `production.json` - Production-ready configuration
+- `README.md` - Detailed setup and usage guide
 
 **Running**:
 ```bash
-cd notebooks/07-claude-desktop-cursor-demos
-pip install -r requirements.txt
+cd notebooks/06-claude-desktop-cursor-demos
 
 # Start development server
 python development_mcp_server.py
 
-# Configure Claude Desktop
-cp claude_desktop_configs/development.json ~/.claude_desktop_config.json
+# Configure Claude Desktop (choose a config)
+cp claude_desktop_configs/development.json ~/.config/Claude/claude_desktop_config.json
 
 # Restart Claude Desktop to load new configuration
 ```
 
-**Key Learning**: Practical MCP usage in real applications for enhanced productivity.
+**Key Learning**: Real-world "end-user" experience with MCP in consumer applications, including tips and best practices.
 
 ---
 
 ### 07. Security Tips
 
-**What it covers**: Security vulnerabilities, best practices, and mitigation strategies
+**What it covers**: Comprehensive security guide for MCP implementations
 
 **Files**:
-- `security_audit_server.py` - Security auditing tools
-- `vulnerable_server.py` - Intentionally vulnerable examples
-- `secure_server.py` - Hardened implementation
-- `README.md` - Complete security guide
+- `README.md` - Complete security guide covering:
+  - Tool poisoning attacks and mitigations
+  - Prompt injection vulnerabilities
+  - Privilege escalation risks
+  - Directory traversal and command injection
+  - Information disclosure vulnerabilities
+  - Security best practices for servers and clients
+  - Pre/during/post-deployment security checklists
 
-**Running**:
-```bash
-cd notebooks/08-security-tips
-pip install -r requirements.txt
-
-# Run security audit
-python security_audit_server.py --audit-mode
-
-# Test vulnerabilities (educational only)
-python vulnerable_server.py &
-python security_tests.py
-```
-
-**Key Learning**: Understanding and mitigating MCP security risks.
+**Key Learning**: Understanding critical security considerations for production MCP deployments, including common attack vectors and mitigation strategies.
 
 ## 🛠️ Automation with Makefile
 
