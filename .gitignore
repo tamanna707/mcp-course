@@ -1,7 +1,6 @@
 .env
 *.json
 *.md
-*.txt
 *.csv
 *.tsv
 *.jsonl
