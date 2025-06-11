@@ -10,9 +10,13 @@
 import os
 from google.adk.agents import LlmAgent
 from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset, StdioServerParameters
+from pathlib import Path
 
 # IMPORTANT: Replace this with the ABSOLUTE path to your my_adk_mcp_server.py script
-PATH_TO_YOUR_MCP_SERVER_SCRIPT = "/Users/greatmaster/Desktop/projects/oreilly-live-trainings/mcp-course/notebooks/04-google-adk-agents/simple_mcp_server.py" # <<< REPLACE
+
+# Get the directory containing this script
+current_dir = Path(__file__).parent.parent
+PATH_TO_YOUR_MCP_SERVER_SCRIPT = str(current_dir / "simple_mcp_server.py")
 
 if PATH_TO_YOUR_MCP_SERVER_SCRIPT == "":
     print("WARNING: PATH_TO_YOUR_MCP_SERVER_SCRIPT is not set. Please update it in agent.py.")
