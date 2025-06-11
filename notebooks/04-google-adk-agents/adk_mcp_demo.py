@@ -1,4 +1,11 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.9"
+# dependencies = [
+#     "google-adk",
+#     "python-dotenv"
+# ]
+# ///
 """
 Google ADK Agent with MCP Integration Demo
 Shows how to use MCP servers with Google's Agent Development Kit

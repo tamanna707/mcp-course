@@ -1,4 +1,11 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.9"
+# dependencies = [
+#     "mcp>=1.0.0",
+#     "asyncio-mqtt>=0.13.0"
+# ]
+# ///
 """
 Comprehensive MCP Server demonstrating all four core capabilities:
 - Tools: Model-controlled executable functions

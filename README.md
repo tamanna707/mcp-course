@@ -10,7 +10,7 @@ The Model Context Protocol (MCP) is revolutionizing how AI applications connect 
 
 - **MCP Fundamentals**: Core concepts, architecture, and capabilities
 - **MCP Capabilities**: Tools, Resources, Prompts, and Sampling
-- **Agent Development**: Building agents with Google ADK, LangGraph, and OpenAI SDK
+- **Agent Development**: Building agents with Google ADK, and OpenAI SDK
 - **Consumer Applications**: Using MCP with Claude Desktop and Cursor IDE
 - **Security Best Practices**: Securing MCP implementations and preventing attacks
 
@@ -27,10 +27,9 @@ mcp-course/
     ├── 02-first-mcp-server/          # Building your first MCP server
     ├── 03-tools-resources-prompts-sampling/  # Core MCP capabilities
     ├── 04-google-adk-agents/         # Google Agent Development Kit demos
-    ├── 05-langgraph-agents/          # LangGraph integration examples
-    ├── 06-openai-agents/             # OpenAI Agents SDK with MCP
-    ├── 07-claude-desktop-cursor-demos/  # Consumer app integration
-    ├── 08-security-tips/             # Security best practices
+    ├── 05-openai-agents/             # OpenAI Agents SDK with MCP
+    ├── 06-claude-desktop-cursor-demos/  # Consumer app integration
+    ├── 07-security-tips/             # Security best practices
     └── assets-resources/             # Images and supporting materials
 ```
 
@@ -46,7 +45,7 @@ mcp-course/
 
 Depending on which demos you want to run:
 
-- [**OpenAI API Key**](https://platform.openai.com/docs/quickstart?api-mode=chat) (for OpenAI and LangGraph demos)
+- [**OpenAI API Key**](https://platform.openai.com/docs/quickstart?api-mode=chat) (for OpenAI demos)
 - [**Anthropic API Key**](https://docs.anthropic.com/en/docs/get-started) (for Claude-based demos)
 - [**Google Cloud Project**](https://arc.net/l/quote/pyqkrzxd) (for ADK demos)
 
@@ -198,33 +197,7 @@ python adk_mcp_agent.py
 
 ---
 
-### 05. LangGraph Agents
-
-**What it covers**: Building LangGraph agents that leverage MCP servers for enhanced capabilities
-
-**Prerequisites**: OpenAI or Anthropic API key
-
-**Files**:
-- `langgraph_mcp_agent.py` - Main LangGraph agent with MCP
-- `requirements.txt` - LangGraph and MCP dependencies
-
-**Running**:
-```bash
-cd notebooks/05-langgraph-agents
-pip install -r requirements.txt
-
-# Set API key
-export OPENAI_API_KEY="your-openai-api-key"
-
-# Run LangGraph agent demos
-python langgraph_mcp_agent.py
-```
-
-**Key Learning**: Using LangGraph's MultiServerMCPClient for complex agent workflows.
-
----
-
-### 06. OpenAI Agents
+### 05. OpenAI Agents
 
 **What it covers**: Building agents with OpenAI's Agents SDK that connect to MCP servers
 
@@ -254,7 +227,7 @@ python openai_mcp_agent.py
 
 ---
 
-### 07. Claude Desktop & Cursor Demos
+### 06. Claude Desktop & Cursor Demos
 
 **What it covers**: End-user MCP experiences with consumer applications
 
@@ -283,7 +256,7 @@ cp claude_desktop_configs/development.json ~/.claude_desktop_config.json
 
 ---
 
-### 08. Security Tips
+### 07. Security Tips
 
 **What it covers**: Security vulnerabilities, best practices, and mitigation strategies
 
@@ -372,7 +345,6 @@ make stop-servers
 
 ### Agent Frameworks
 - [Google ADK Documentation](https://google.github.io/adk-docs/)
-- [LangGraph Documentation](https://langchain-ai.github.io/langgraph/)
 - [OpenAI Agents SDK](https://openai.github.io/openai-agents-python/)
 
 ### Community Resources
